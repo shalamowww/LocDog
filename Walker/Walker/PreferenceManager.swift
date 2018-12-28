@@ -100,19 +100,18 @@ class PreferenceManager {
   }
   
   fileprivate func updateLocationOnDevice() {
-    //    if let scriptPath = Bundle.main.path(forResource: "script", ofType: "scpt") {
-    //      let process = Process()
-    //      if process.isRunning == false {
-    //        let pipe = Pipe()
-    //        process.launchPath = "/usr/bin/osascript"
-    //        process.arguments = [scriptPath]
-    //        process.standardError = pipe
-    //        process.launch()
-    //      }
-    //    }
     let myAppleScript = """
+    set proxyIndex to 0
+
+    tell application "Xcode"
+      set openedProjects to name of every workspace document
+      repeat with a from 1 to count of openedProjects
+        if item a of openedProjects contains "Locator" then set proxyIndex to a
+      end repeat
+    end tell
+
     tell application "System Events" to tell process "Xcode"
-      click menu item "pokemon_location" of menu 1 of menu item "Simulate Location" of menu 1 of menu bar item "Debug" of menu bar 1
+      click menu item "Simulated Location" of menu 1 of menu item "Simulate Location" of menu 1 in menu bar item "Debug" in menu bar 1
     end tell
     """
     var error: NSDictionary?
