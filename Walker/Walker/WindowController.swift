@@ -72,4 +72,8 @@ class WindowController: NSWindowController {
       viewController?.mapView.removeOverlays(overlays)
     }
   }
+  
+  @IBAction func cameraFollowsPressed(_ sender: Any) {
+    viewController?.cameraFollows = !viewController!.cameraFollows
+  }
 }

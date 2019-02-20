@@ -11,7 +11,7 @@ import Cocoa
 enum Speed: Double {
   // meter per second
   // Egg-hatch-safe speed is about 10.5 km/h
-  case walk = 1.4, run = 2.8, cycle = 8, drive = 16, race = 27
+  case walk = 1.2, run = 2.8, cycle = 8, drive = 16, race = 27
   
   var jitter: Double {
     switch self {

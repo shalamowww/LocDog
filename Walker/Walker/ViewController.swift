@@ -28,6 +28,9 @@ class ViewController: NSViewController {
       preference.userLocation = userLocation
       updateUserLocationPin()
       updateCoordinateTextField()
+      if cameraFollows {
+        updateCamera()
+      }
     }
   }
   
@@ -38,7 +41,18 @@ class ViewController: NSViewController {
     }
   }
   
+  var bearing: CGFloat = 0 {
+    didSet {
+      if cameraFollows {
+        updateCamera()
+      }
+    }
+  }
+  
+  var cameraFollows = true
+  
   fileprivate var userLocationPin: MKPointAnnotation?
+  fileprivate var userLocationView: MKAnnotationView!
   fileprivate var favoritesPins = [MKPointAnnotation]()
   
   fileprivate var rightMouseDownEvent: NSEvent?
@@ -51,6 +65,7 @@ class ViewController: NSViewController {
     mapView.delegate = self
     mapView.showsScale = true
     mapView.showsUserLocation = true
+    mapView.showsBuildings = true
     coordinateVisualEffectView.layer?.cornerRadius = 9.0
     speed = preference.speed
     userLocation = preference.userLocation
@@ -64,7 +79,24 @@ class ViewController: NSViewController {
       let span = MKCoordinateSpan(latitudeDelta: latitudeDelta, longitudeDelta: longitudeDelta)
       let region = MKCoordinateRegion(center: userLocation, span: span)
       mapView.setRegion(region, animated: true)
+    } else {
+      preference.userLocation = mapView.userLocation.coordinate
     }
+    
+    let recognizer = NSPanGestureRecognizer(target: self, action: #selector(userDraggedMap(_:)))
+    recognizer.delegate = self
+    mapView.addGestureRecognizer(recognizer)
+  }
+  
+  func updateCamera() {
+    guard let userLocation = userLocation else {
+      return
+    }
+    let camera = MKMapCamera()
+    camera.heading = CLLocationDirection(bearing)
+    camera.centerCoordinate = userLocation
+    camera.altitude = mapView.camera.altitude
+    mapView.setCamera(camera, animated: true)
   }
   
   fileprivate func updateSpeedPopUpButton() {
@@ -105,12 +137,6 @@ class ViewController: NSViewController {
   
   // MARK: Action
   @objc fileprivate func handleTeleportMenu(_ sender: NSMenuItem) {
-//    guard let point = rightMouseDownEvent?.locationInWindow else {
-//      return
-//    }
-//    let coordinate = mapView.convert(point, toCoordinateFrom: view)
-//    favorites?.append(Favorite(coordinate: coordinate))
-//    rightMouseDownEvent = nil
     guard let point = rightMouseDownEvent?.locationInWindow else {
       return
     }
@@ -125,17 +151,29 @@ class ViewController: NSViewController {
         return event
       }
       let speed = self.speed.rawValue
-      let latitudeDelta = UnitConverter.latitudeDegrees(fromMeter: speed)
-      let longitudeDelta = UnitConverter.longitudeDegress(fromMeter: speed, latitude: coordinate.latitude)
       switch event.keyCode {
         case 126, 13: // Up
-          self.userLocation = CLLocationCoordinate2D(latitude: coordinate.latitude + latitudeDelta + self.speed.jitter - self.speed.jitter, longitude: coordinate.longitude + self.speed.jitter - self.speed.jitter)
+          let a = 6378137.0, f = 1/298.257223563
+          var geod = geod_geodesic()
+          geod_init(&geod, a, f)
+          var newLat: Double = 0.0
+          var newLon: Double = 0.0
+          var newAzi: Double = 0.0
+          geod_direct(&geod, coordinate.latitude, coordinate.longitude, self.mapView.camera.heading, speed, &newLat, &newLon, &newAzi)
+          self.userLocation = CLLocationCoordinate2D(latitude: newLat + self.speed.jitter - self.speed.jitter, longitude: newLon + self.speed.jitter - self.speed.jitter)
         case 125, 1: // Down
-          self.userLocation = CLLocationCoordinate2D(latitude: coordinate.latitude - latitudeDelta + self.speed.jitter - self.speed.jitter, longitude: coordinate.longitude + self.speed.jitter - self.speed.jitter)
+          let a = 6378137.0, f = 1/298.257223563
+          var geod = geod_geodesic()
+          geod_init(&geod, a, f)
+          var newLat: Double = 0.0
+          var newLon: Double = 0.0
+          var newAzi: Double = 0.0
+          geod_direct(&geod, coordinate.latitude, coordinate.longitude, self.mapView.camera.heading, -speed, &newLat, &newLon, &newAzi)
+          self.userLocation = CLLocationCoordinate2D(latitude: newLat + self.speed.jitter - self.speed.jitter, longitude: newLon + self.speed.jitter - self.speed.jitter)
         case 123, 0: // Left
-          self.userLocation = CLLocationCoordinate2D(latitude: coordinate.latitude + self.speed.jitter - self.speed.jitter, longitude: coordinate.longitude - longitudeDelta + self.speed.jitter - self.speed.jitter)
+          self.bearing -= 15
         case 124, 2: // Right
-          self.userLocation = CLLocationCoordinate2D(latitude: coordinate.latitude + self.speed.jitter - self.speed.jitter, longitude: coordinate.longitude + longitudeDelta + self.speed.jitter - self.speed.jitter)
+          self.bearing += 15
         case 49:
           self.navigator?.paused = !(self.navigator?.paused ?? false)
         default:
@@ -147,12 +185,6 @@ class ViewController: NSViewController {
 }
 
 extension ViewController {
-//  override func mouseUp(with theEvent: NSEvent) {
-//    mapView.removeOverlays(mapView.overlays)
-//    let point = theEvent.locationInWindow
-//    let coordinate = mapView.convert(point, toCoordinateFrom: view)
-//    userLocation = coordinate
-//  }
   
   override func rightMouseDown(with theEvent: NSEvent) {
     rightMouseDownEvent = theEvent
@@ -163,6 +195,7 @@ extension ViewController {
     menu.addItem(withTitle: "Drive to this location", action: #selector(handleMenu(_:)), keyEquivalent: "")
     menu.addItem(withTitle: "Race to this location", action: #selector(handleMenu(_:)), keyEquivalent: "")
     menu.addItem(NSMenuItem.separator())
+    menu.addItem(withTitle: "Walk directly", action: #selector(handleMenu(_:)), keyEquivalent: "")
     menu.addItem(withTitle: "Teleport here", action: #selector(handleTeleportMenu(_:)), keyEquivalent: "")
     NSMenu.popUpContextMenu(menu, with: theEvent, for: mapView)
   }
@@ -195,6 +228,18 @@ extension ViewController {
       }
       self?.mapView.addOverlay(route.polyline, level: .aboveRoads)
       self?.navigator?.startNavigation(speed: self!.speed, progress: { (coordinate) in
+        if self!.cameraFollows {
+          let a = 6378137.0, f = 1/298.257223563
+          var geod = geod_geodesic()
+          geod_init(&geod, a, f)
+          let lat = self!.userLocation!.latitude
+          let lon = self!.userLocation!.longitude
+          var ps12 = 0.0
+          var az1 = 0.0
+          var az2 = 0.0
+          geod_inverse(&geod, lat, lon, coordinate.latitude, coordinate.longitude, &ps12, &az1, &az2)
+          self?.bearing = CGFloat(az1)
+        }
         self?.userLocation = coordinate
       })
     })
@@ -206,8 +251,8 @@ extension ViewController: MKMapViewDelegate {
     if overlay is MKPolyline {
       let renderer = MKPolylineRenderer(overlay: overlay)
       renderer.lineCap = .round
-      renderer.lineWidth = 3
-      renderer.strokeColor = NSColor.blue
+      renderer.lineWidth = 7
+      renderer.strokeColor = NSColor.init(calibratedRed: 0, green: 0.3, blue: 1, alpha: 0.5)
       return renderer
     }
     return MKOverlayRenderer()
@@ -233,5 +278,37 @@ extension ViewController: MKMapViewDelegate {
       default: break
       }
     })
+  }
+  
+  func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+    if annotation is MKUserLocation {
+      return nil
+    }
+    
+    let identifier = "MyPin"
+    
+    var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+    
+    if annotationView == nil {
+      annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+      annotationView?.isEnabled = true
+      let img = NSImage(named: "custom_pin")
+      annotationView?.image = img
+      userLocationView = annotationView
+    } else {
+      annotationView?.annotation = annotation
+    }
+    
+    return annotationView
+  }
+}
+
+extension ViewController: NSGestureRecognizerDelegate {
+  @objc func userDraggedMap(_ recognizer: NSGestureRecognizer) {
+    cameraFollows = false
+  }
+  
+  func gestureRecognizer(_ gestureRecognizer: NSGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: NSGestureRecognizer) -> Bool {
+    return true
   }
 }

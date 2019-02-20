@@ -8,6 +8,7 @@
 
 import Cocoa
 import MapKit
+import MapboxDirections
 
 class Navigator {
   fileprivate let sourceCoordinate: CLLocationCoordinate2D
@@ -25,6 +26,9 @@ class Navigator {
   fileprivate var currentCoordinate: CLLocationCoordinate2D?
   
   fileprivate var progressHandler: ((CLLocationCoordinate2D) -> ())?
+  fileprivate let directions = Directions(accessToken: "pk.eyJ1IjoiZXRoYW1pbmUiLCJhIjoiY2pxbW0xeDEwMDA5cTN4bzNvMGQ1bXA2MSJ9.dvcKyNBbbZkbP2nqi_dsVQ")
+  
+  public var directRoute = false
   
   var paused: Bool = false {
     didSet {

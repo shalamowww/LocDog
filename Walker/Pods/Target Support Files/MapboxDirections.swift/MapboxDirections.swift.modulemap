@@ -1,0 +1,6 @@
+framework module MapboxDirections {
+  umbrella header "MapboxDirections.swift-umbrella.h"
+
+  export *
+  module * { export * }
+}

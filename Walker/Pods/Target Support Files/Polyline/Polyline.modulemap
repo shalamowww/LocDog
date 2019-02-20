@@ -1,0 +1,6 @@
+framework module Polyline {
+  umbrella header "Polyline-umbrella.h"
+
+  export *
+  module * { export * }
+}

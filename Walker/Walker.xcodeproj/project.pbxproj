@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1117BEF221D823D9000C67B6 /* Geodesic.c in Sources */ = {isa = PBXBuildFile; fileRef = 1117BEF121D823D9000C67B6 /* Geodesic.c */; };
 		160535301D472ABC004C7529 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1605352F1D472ABC004C7529 /* WindowController.swift */; };
 		160535351D47586B004C7529 /* GpxManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160535341D47586B004C7529 /* GpxManager.swift */; };
 		160535381D47A630004C7529 /* PreferenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160535371D47A630004C7529 /* PreferenceManager.swift */; };
@@ -19,9 +20,13 @@
 		169EC4021D47284200992EA3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169EC4011D47284200992EA3 /* ViewController.swift */; };
 		169EC4041D47284200992EA3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 169EC4031D47284200992EA3 /* Assets.xcassets */; };
 		169EC4071D47284200992EA3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 169EC4051D47284200992EA3 /* Main.storyboard */; };
+		7AC658B128D0084689076D8E /* Pods_Walker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B22BE7E0B7673104F8A0B79B /* Pods_Walker.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1117BEEF21D823D9000C67B6 /* Walker-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Walker-Bridging-Header.h"; sourceTree = "<group>"; };
+		1117BEF021D823D9000C67B6 /* Geodesic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Geodesic.h; sourceTree = "<group>"; };
+		1117BEF121D823D9000C67B6 /* Geodesic.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Geodesic.c; sourceTree = "<group>"; };
 		1605352F1D472ABC004C7529 /* WindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 		160535341D47586B004C7529 /* GpxManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GpxManager.swift; sourceTree = "<group>"; };
 		160535371D47A630004C7529 /* PreferenceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferenceManager.swift; sourceTree = "<group>"; };
@@ -36,6 +41,9 @@
 		169EC4031D47284200992EA3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		169EC4061D47284200992EA3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		169EC4081D47284200992EA3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		995B96FACE00E10906E9CB41 /* Pods-Walker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Walker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Walker/Pods-Walker.debug.xcconfig"; sourceTree = "<group>"; };
+		B22BE7E0B7673104F8A0B79B /* Pods_Walker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Walker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CBBC2442B2C5B91DA45A53B2 /* Pods-Walker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Walker.release.xcconfig"; path = "Pods/Target Support Files/Pods-Walker/Pods-Walker.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,12 +51,32 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AC658B128D0084689076D8E /* Pods_Walker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0F55CEE7E9A48AFAD36F5DB2 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				995B96FACE00E10906E9CB41 /* Pods-Walker.debug.xcconfig */,
+				CBBC2442B2C5B91DA45A53B2 /* Pods-Walker.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		11DCEFF1221DE6730051F027 /* Geodesic */ = {
+			isa = PBXGroup;
+			children = (
+				1117BEF021D823D9000C67B6 /* Geodesic.h */,
+				1117BEF121D823D9000C67B6 /* Geodesic.c */,
+			);
+			name = Geodesic;
+			path = ..;
+			sourceTree = "<group>";
+		};
 		160535331D475838004C7529 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -82,6 +110,9 @@
 			children = (
 				169EC3FE1D47284200992EA3 /* Walker */,
 				169EC3FD1D47284200992EA3 /* Products */,
+				1117BEEF21D823D9000C67B6 /* Walker-Bridging-Header.h */,
+				0F55CEE7E9A48AFAD36F5DB2 /* Pods */,
+				F82DDD0F85E6D11E46F582E7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -96,6 +127,7 @@
 		169EC3FE1D47284200992EA3 /* Walker */ = {
 			isa = PBXGroup;
 			children = (
+				11DCEFF1221DE6730051F027 /* Geodesic */,
 				169EC40E1D47284700992EA3 /* Application */,
 				169EC4111D47285300992EA3 /* User Interface */,
 				160535361D47A5DE004C7529 /* Model */,
@@ -141,6 +173,14 @@
 			name = "User Interface";
 			sourceTree = "<group>";
 		};
+		F82DDD0F85E6D11E46F582E7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B22BE7E0B7673104F8A0B79B /* Pods_Walker.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -148,9 +188,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 169EC40B1D47284200992EA3 /* Build configuration list for PBXNativeTarget "Walker" */;
 			buildPhases = (
+				3BA8126710BC25DAA48E2497 /* [CP] Check Pods Manifest.lock */,
 				169EC3F81D47284200992EA3 /* Sources */,
 				169EC3F91D47284200992EA3 /* Frameworks */,
 				169EC3FA1D47284200992EA3 /* Resources */,
+				CA439D6816F0FDEB9E3FBAF1 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -207,6 +249,47 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3BA8126710BC25DAA48E2497 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Walker-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CA439D6816F0FDEB9E3FBAF1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Walker/Pods-Walker-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/MapboxDirections.swift/MapboxDirections.framework",
+				"${BUILT_PRODUCTS_DIR}/Polyline/Polyline.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MapboxDirections.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Polyline.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Walker/Pods-Walker-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		169EC3F81D47284200992EA3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -221,6 +304,7 @@
 				1605353C1D48717E004C7529 /* Speed.swift in Sources */,
 				160535301D472ABC004C7529 /* WindowController.swift in Sources */,
 				1605353E1D4871D2004C7529 /* UnitConverter.swift in Sources */,
+				1117BEF221D823D9000C67B6 /* Geodesic.c in Sources */,
 				169EC4001D47284200992EA3 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -344,13 +428,17 @@
 		};
 		169EC40C1D47284200992EA3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 995B96FACE00E10906E9CB41 /* Pods-Walker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Walker/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.walker.ftw;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Walker-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.2;
 			};
@@ -358,13 +446,16 @@
 		};
 		169EC40D1D47284200992EA3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CBBC2442B2C5B91DA45A53B2 /* Pods-Walker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Walker/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.walker.ftw;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Walker-Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.2;
 			};

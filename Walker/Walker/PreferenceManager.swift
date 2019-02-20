@@ -10,6 +10,9 @@ import Cocoa
 import MapKit
 
 class PreferenceManager {
+  
+  fileprivate var errorLogged = false
+  
   static let defaultManager = PreferenceManager()
   
   fileprivate let defaults = UserDefaults.standard
@@ -81,7 +84,7 @@ class PreferenceManager {
       return
     }
     GpxManager.saveGpxFile(userLocation.latitude, longitude: userLocation.longitude)
-    updateLocationOnDevice()
+    //updateLocationOnDevice()
   }
   
   // MARK: Favorites
@@ -100,6 +103,10 @@ class PreferenceManager {
   }
   
   fileprivate func updateLocationOnDevice() {
+    // by using this code I tried to get rid of the location update script
+    // but it turned out that calling Apple Script from the code is not working as expected
+    // also you would have to allow Xcode and Walker to control your system
+    // in Settings -> Privacy -> Accessibility and Automation, so I dropped it
     let myAppleScript = """
     set proxyIndex to 0
 
@@ -118,7 +125,8 @@ class PreferenceManager {
     if let scriptObject = NSAppleScript(source: myAppleScript) {
       if let outputString = scriptObject.executeAndReturnError(&error).stringValue {
         print(outputString)
-      } else if (error != nil) {
+      } else if errorLogged == false, error != nil {
+        errorLogged = true
         print("error: ", error!)
       }
     }

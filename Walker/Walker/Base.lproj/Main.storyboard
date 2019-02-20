@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
         <plugIn identifier="com.apple.MapKitIBPlugin" version="14460.31"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -643,7 +644,7 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Pokemon_GO_Controller_Mac" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Walker" customModuleProvider="target"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-50" y="-58"/>
@@ -651,7 +652,7 @@
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController showSeguePresentationStyle="single" id="B8D-0N-5wS" customClass="WindowController" customModule="Pokemon_GO_Controller_Mac" customModuleProvider="target" sceneMemberID="viewController">
+                <windowController showSeguePresentationStyle="single" id="B8D-0N-5wS" customClass="WindowController" customModule="Walker" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -696,12 +697,12 @@
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="DF82869E-F32C-4125-88E8-86768EF8C5AA" label="Location" paletteLabel="Location" id="i2t-BV-X0v">
                                     <nil key="toolTip"/>
-                                    <size key="minSize" width="120" height="25"/>
+                                    <size key="minSize" width="64" height="25"/>
                                     <size key="maxSize" width="120" height="25"/>
                                     <button key="view" verticalHuggingPriority="750" id="2VW-V4-nrA">
-                                        <rect key="frame" x="0.0" y="14" width="120" height="25"/>
+                                        <rect key="frame" x="0.0" y="14" width="99" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="roundTextured" title="Actual Location" bezelStyle="texturedRounded" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="m12-bd-FcK">
+                                        <buttonCell key="cell" type="roundTextured" title="My Location" bezelStyle="texturedRounded" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="m12-bd-FcK">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -712,10 +713,10 @@
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="0BE2A531-9E3A-4373-8F68-2027BCC714DA" label="Speed" paletteLabel="Speed" id="iMw-49-5J4">
                                     <nil key="toolTip"/>
-                                    <size key="minSize" width="100" height="26"/>
+                                    <size key="minSize" width="50" height="26"/>
                                     <size key="maxSize" width="100" height="26"/>
                                     <popUpButton key="view" verticalHuggingPriority="750" id="9xg-Xg-VWr">
-                                        <rect key="frame" x="0.0" y="14" width="100" height="26"/>
+                                        <rect key="frame" x="0.0" y="14" width="67" height="26"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <popUpButtonCell key="cell" type="roundTextured" title="Walk" bezelStyle="texturedRounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="pIT-Bu-JIa" id="S8B-pc-Cql">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -751,10 +752,10 @@
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="4AD5BDFE-1407-4D55-A317-3DB22BBB5E2C" label="Map Type" paletteLabel="Map Type" id="Pgp-Oe-JoK">
                                     <nil key="toolTip"/>
-                                    <size key="minSize" width="100" height="26"/>
+                                    <size key="minSize" width="79" height="26"/>
                                     <size key="maxSize" width="100" height="26"/>
                                     <popUpButton key="view" verticalHuggingPriority="750" id="o0H-Qz-pCb">
-                                        <rect key="frame" x="0.0" y="14" width="100" height="26"/>
+                                        <rect key="frame" x="0.0" y="14" width="79" height="26"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <popUpButtonCell key="cell" type="roundTextured" title="Standard" bezelStyle="texturedRounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="ZbF-xW-7Oh" id="IzZ-4r-kBv">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -786,6 +787,20 @@
                                         </connections>
                                     </button>
                                 </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="DA56A957-5ED0-4A36-A4A0-0313D90D376A" label="Follow" paletteLabel="Follow" sizingBehavior="auto" id="99b-vg-S1s">
+                                    <nil key="toolTip"/>
+                                    <button key="view" verticalHuggingPriority="750" id="VOC-kf-Ele">
+                                        <rect key="frame" x="0.0" y="14" width="82" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="push" title="Follow" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="0Kc-7d-aUM">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="cameraFollowsPressed:" target="B8D-0N-5wS" id="ivi-HL-VUP"/>
+                                        </connections>
+                                    </button>
+                                </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
                                 <toolbarItem reference="Bxu-g1-Ca3"/>
@@ -797,6 +812,7 @@
                                 <toolbarItem reference="ytn-Pe-Hz9"/>
                                 <toolbarItem reference="zMf-qn-nd2"/>
                                 <toolbarItem reference="i2t-BV-X0v"/>
+                                <toolbarItem reference="99b-vg-S1s"/>
                             </defaultToolbarItems>
                         </toolbar>
                         <connections>
@@ -816,7 +832,7 @@
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="Pokemon_GO_Controller_Mac" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="Walker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
